@@ -10,14 +10,9 @@ const Todo = ({todo}) => {
 
     const [showModal, setShowModal] = useState(false);
 
-    const handleUpdateTodo = () => {
-        // updateTodo({id});
-        setShowModal(true);
-    };
-
     return (
         <>
-            {showModal ? <Modal setShowModal={setShowModal} handleUpdateTodo={handleUpdateTodo} todo={todo} /> : (
+            {showModal ? <Modal setShowModal={setShowModal} todo={todo} /> : (
             <div
                 className="flex justify-start items-center p-2 hover:bg-gray-100 hover:transition-all space-x-4 border-b border-gray-400/20 last:border-0"
             >    
@@ -63,10 +58,11 @@ const Todo = ({todo}) => {
                 </div>
     
                 <img
+
                     src={cancelImage}
                     className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer"
                     alt="Cancel"
-                    onClick={handleUpdateTodo}
+                    onClick={() => setShowModal(true)}
                 />
     
                 <img
