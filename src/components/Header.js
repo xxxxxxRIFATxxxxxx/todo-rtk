@@ -2,11 +2,20 @@ import React, { useState } from 'react';
 import doubleTickImage from '../assets/images/double-tick.png';
 import notesImage from '../assets/images/notes.png';
 import plusImage from '../assets/images/plus.png';
-import { usePostTodoMutation } from '../features/api/apiSlice';
+import {
+    useDeleteTodoMutation,
+    useGetTodosQuery,
+    usePostTodoMutation,
+    useUpdateTodoMutation
+} from '../features/api/apiSlice';
 
 const Header = () => {
-    const [ todoTitle, setTodoTitle ] = useState();
+    const { data: todos} = useGetTodosQuery();
     const [ postTodo ] = usePostTodoMutation();
+    const [ updateTodo ] = useUpdateTodoMutation();
+    const [ deleteTodo ] = useDeleteTodoMutation();
+    
+    const [ todoTitle, setTodoTitle ] = useState("");
 
     const handlePostTodo = (e) => {
         e.preventDefault();
@@ -17,6 +26,23 @@ const Header = () => {
             }
         });
         setTodoTitle("");
+    };
+
+    const handleCompleteAllTasks = () => {
+        todos.forEach((todo) => {
+            updateTodo({
+                id: todo.id,
+                data: {completed: true}
+            });
+        });
+    };
+
+    const handleClearAllCompletedTasks = () => {
+        todos.forEach((todo) => {
+            if (todo.completed) {
+                deleteTodo({id: todo.id});
+            };
+        });
     };
 
     return (
@@ -47,7 +73,7 @@ const Header = () => {
             </form>
 
             <ul className="flex justify-between my-4 text-xs text-gray-500">
-                <li className="flex space-x-1 cursor-pointer">
+                <li className="flex space-x-1 cursor-pointer" onClick={handleCompleteAllTasks}>
                     <img
                         className="w-4 h-4"
                         src={doubleTickImage}
@@ -56,7 +82,7 @@ const Header = () => {
                     <span>Complete All Tasks</span>
                 </li>
 
-                <li className="cursor-pointer">Clear completed</li>
+                <li className="cursor-pointer" onClick={handleClearAllCompletedTasks}>Clear completed</li>
             </ul>
         </div>
     );

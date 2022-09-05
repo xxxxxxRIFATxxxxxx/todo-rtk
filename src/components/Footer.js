@@ -45,7 +45,8 @@ const Footer = () => {
 
     return (
         <div className="mt-4 flex justify-between text-xs text-gray-500">
-            <p>{todosLeft}</p>
+            {todosLeft}
+            
             <ul className="flex space-x-1 items-center text-xs">
                 <li
                     className={`cursor-pointer ${status === "all" && "font-bold"}`}
