@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import cancelImage from '../assets/images/cancel.png';
+import editImage from '../assets/images/edit-round.svg';
 import { useDeleteTodoMutation, useUpdateTodoMutation } from '../features/api/apiSlice';
 import Modal from './Modal';
 
@@ -12,7 +13,8 @@ const Todo = ({todo}) => {
 
     return (
         <>
-            {showModal ? <Modal setShowModal={setShowModal} todo={todo} /> : (
+            {showModal && <Modal setShowModal={setShowModal} todo={todo} />}
+
             <div
                 className="flex justify-start items-center p-2 hover:bg-gray-100 hover:transition-all space-x-4 border-b border-gray-400/20 last:border-0"
             >    
@@ -59,9 +61,9 @@ const Todo = ({todo}) => {
     
                 <img
 
-                    src={cancelImage}
+                    src={editImage}
                     className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer"
-                    alt="Cancel"
+                    alt="Edit"
                     onClick={() => setShowModal(true)}
                 />
     
@@ -72,7 +74,6 @@ const Todo = ({todo}) => {
                     onClick={() => deleteTodo({id})}
                 />
             </div>
-            )}
         </>
     );
 };

@@ -8,7 +8,7 @@ const Modal = ({todo, setShowModal}) => {
     const [ todoCompleted, setTodoCompleted ] = useState(completed);
     const [ todoColor, setTodoColor ] = useState(color);
 
-    const [ updateTodo, {isSuccess} ] = useUpdateTodoMutation();
+    const [ updateTodo ] = useUpdateTodoMutation();
 
     const handleUpdateTodo = () => {
         updateTodo({
@@ -20,10 +20,7 @@ const Modal = ({todo, setShowModal}) => {
                 color: todoColor
             }
         });
-
-        if (isSuccess) {
-            setShowModal(false);  
-        };
+        setShowModal(false); 
     };
 
     return (
@@ -41,7 +38,7 @@ const Modal = ({todo, setShowModal}) => {
                                             type="number" 
                                             id="id" 
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={id} 
-                                            value={id}
+                                            value={todoId}
                                             onChange={(e) => {setTodoId(e.target.value)}}
                                             required 
                                         />
@@ -53,7 +50,7 @@ const Modal = ({todo, setShowModal}) => {
                                             type="text" 
                                             id="title" 
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={text} 
-                                            value={text}
+                                            value={todoText}
                                             onChange={(e) => setTodoText(e.target.value)}
                                             required 
                                         />
@@ -65,7 +62,7 @@ const Modal = ({todo, setShowModal}) => {
                                             type="text" 
                                             id="color" 
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={color} 
-                                            value={color}
+                                            value={todoColor}
                                             onChange={(e) => setTodoColor(e.target.value)}
                                             required 
                                         />
@@ -77,7 +74,7 @@ const Modal = ({todo, setShowModal}) => {
                                             type="text" 
                                             id="completed" 
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={completed ? "true" : "false"} 
-                                            value={completed}
+                                            value={todoCompleted}
                                             onChange={(e) => setTodoCompleted(e.target.value)}
                                             required 
                                         />
